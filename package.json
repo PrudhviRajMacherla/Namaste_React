@@ -4,6 +4,8 @@
   "description": "Namaste React By Akshay",
   "main": "App.js",
   "scripts": {
+    "start":"parcel index.html",
+    "dev":"parcel build index.html",
     "test": "jest"
   },
   "author": "PrudhviRaj",

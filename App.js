@@ -18,22 +18,42 @@
 
 import React from "react";
 import ReactDOM from "react-dom/client"
-const parent = React.createElement("div",{id:"parent"},
-    [
-        React.createElement("div",{id:"child1"},
-            [
-                React.createElement("h1",{},"h1 from child1"),
-                React.createElement("h2",{},"h2 from child1"),
-            ]
-        ),
-        React.createElement("div",{id:"child2"},
-            [
-                React.createElement("h1",{},"h1 from child2"),
-                React.createElement("h2",{},"h2 from child2"),
-            ]
-        )
-    ]
+// const parent = React.createElement("div",{id:"parent"},
+//     [
+//         React.createElement("div",{id:"child1"},
+//             [
+//                 React.createElement("h1",{},"h1 from child1"),
+//                 React.createElement("h2",{},"h2 from child1"),
+//             ]
+//         ),
+//         React.createElement("div",{id:"child2"},
+//             [
+//                 React.createElement("h1",{},"h1 from child2"),
+//                 React.createElement("h2",{},"h2 from child2"),
+//             ]
+//         )
+//     ]
+// )
+
+const HeadingCompo1=()=>{
+    return <h1>Functional component using different syntax 1</h1>
+}
+const Title =()=>(<h1 className="heading">
+    Functional component using different syntax 2
+</h1>);
+
+const ele = <span>Using element inside react component</span>
+
+const HeaderComponent=()=>(
+    
+    <>
+    {ele}
+    <Title/>
+    <HeadingCompo1/>
+    <h1>Functional component</h1>
+    </>  
 )
-// console.log(parent);
+    
+
 const root  = ReactDOM.createRoot(document.getElementById("root"));
-root.render(parent);
+root.render(<HeaderComponent/>);
