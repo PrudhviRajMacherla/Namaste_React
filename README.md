@@ -46,3 +46,8 @@ Two imp hooks
 -> Render(Api_data) -> renders with api data
         <HTML (new ApI Data)>
 ->ComponenDidUpdate
+
+# How to optimize our app
+1) we create different files which make different calls
+2) Bundling makes everything into one large file
+both r not suitable so we bundle few files into more bundles -> chunking/code splittig/dynamic bundling/lazy loading(All r same )
