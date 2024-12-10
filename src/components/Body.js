@@ -1,15 +1,19 @@
+import { FaFilter, FaSearch } from "react-icons/fa";
 import { RESTAURANTS_LIST_API } from "../utils/constants";
 import useOnlineStatus from "../utils/useOnlineStatus";
-import RestaurantCard from "./ResataurantCard";
+import RestaurantCard, { withVegLabel } from "./ResataurantCard";
 import Shimmer from "./Shimmer";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import OfflinePage from "./OfflinePage";
 const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [copyList, setCopyList] = useState([]);
 
   const onlineStatus = useOnlineStatus();
+
+  const VegRestrauntCard = withVegLabel(RestaurantCard);
 
   useEffect(() => {
     fetchData();
@@ -34,26 +38,27 @@ const Body = () => {
   };
 
   if (onlineStatus === false) {
-    return <h1>Your Offline,Plz Check Your internet Connection!!!</h1>;
+    return <OfflinePage />;
   }
   //This is known as conditonal rendering
   return listOfRestaurants.length === 0 ? (
     <Shimmer />
   ) : (
     <div className="body">
-      <div className="filter">
-        <div className="search">
+      <div className="filter flex ">
+        <div className="search m-4 p-4 flex items-center">
           {/* we are binding the state variable with input text  but this doesn't work bcoz it won't change state variable
           to make this happen we use onChange */}
           <input
             type="text"
-            className="search-box"
+            className="border border-solid border-black"
             value={searchText}
             onChange={(e) => {
               setSearchText(e.target.value);
             }}
           />
           <button
+            className="px-2 bg-green-200 m-2 flex items-center rounded-lg"
             onClick={() => {
               let filtred_items = copyList.filter((res) => {
                 return res?.info?.name
@@ -62,28 +67,35 @@ const Body = () => {
               });
               setListOfRestaurants(filtred_items);
             }}
-            className="search-btn"
           >
-            search
+            <span>search</span>
+            <FaSearch className="ml-2" />
           </button>
         </div>
-        <button
-          className="filter-btn"
-          onClick={() => {
-            let top_rated_resto = copyList.filter((res) => {
-              return res?.info?.avgRating > 4.5;
-            });
-            setListOfRestaurants(top_rated_resto);
-          }}
-        >
-          Top-Rated Restaurants
-        </button>
+        <div className="flex items-center">
+          <button
+            className="filter-btn bg-gray-200 p-1 rounded-lg flex items-center"
+            onClick={() => {
+              let top_rated_resto = copyList.filter((res) => {
+                return res?.info?.avgRating > 4.2;
+              });
+              setListOfRestaurants(top_rated_resto);
+            }}
+          >
+            <span>Top-Rated Restaurants</span>
+            <FaFilter />
+          </button>
+        </div>
       </div>
-      {/* <div className="search">Search</div> */}
-      <div className="res-container">
+
+      <div className="res-container flex flex-wrap justify-center">
         {listOfRestaurants.map((e) => (
           <Link to={"/restaurants/" + e?.info?.id} key={e?.info?.id}>
-            <RestaurantCard resObj={e.info} />
+            {e.info.veg ? (
+              <VegRestrauntCard resObj={e.info} />
+            ) : (
+              <RestaurantCard resObj={e.info} />
+            )}
           </Link>
         ))}
       </div>

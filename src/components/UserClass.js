@@ -1,4 +1,5 @@
 import React from "react";
+import UserContext from "../utils/UserContext";
 class UserClass extends React.Component {
   constructor(props) {
     super(props);
@@ -34,6 +35,10 @@ class UserClass extends React.Component {
     const { name,location,public_repos,avatar_url} = this.state.userInfo;
     return (
       <div className="user-card">
+        <UserContext.Consumer>
+          {({loggedInUser})=><h1>name from usercontext{loggedInUser}</h1>}
+        </UserContext.Consumer>
+        <h3></h3>
         <h1>Class Based component</h1>
         <h1>My github Profile</h1>
         <img src={avatar_url} alt="Empty Image"/>

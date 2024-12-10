@@ -1,29 +1,43 @@
-import React ,{lazy,Suspense} from "react";
+import React, { lazy, Suspense, useContext, useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
-import Header from "./components/Header";
-import Body from "./components/Body";
-import About from "./components/About";
-import Error from "./components/Error";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import About from "./components/About";
+import Body from "./components/Body";
 import Contact from "./components/Contact";
+import Error from "./components/Error";
+import Header from "./components/Header";
 import RestaurantMenu from "./components/RestaurantMenu";
-
+import UserContext from "./utils/UserContext";
 
 // Chunking
 // Code splitting
 // lazy loading
 // on demand loading
-// dynamic bundling 
+// dynamic bundling
 // dynamic import
 
-const Grocery = lazy(()=> import("./components/Grocery"))
+const Grocery = lazy(() => import("./components/Grocery"));
 
-const AppLayout = () => (
-  <div className="app">
-    <Header />
-    <Outlet/>
-  </div>
-);
+const AppLayout = () => {
+  const [userName, setUserName] = useState();
+  //authentication
+  useEffect(() => {
+    //Making api call to  send username and Password
+    const data = {
+      name: "Prudhvi Raj",
+    };
+    setUserName(data.name);
+  }, []);
+
+  return (
+    <UserContext.Provider value={{ loggedInUser: userName }}>
+      <div className="app">
+        <Header />
+        <Outlet />
+      </div>
+    </UserContext.Provider>
+  );
+};
 
 //creating configuration
 const appRouter = createBrowserRouter([
@@ -32,8 +46,8 @@ const appRouter = createBrowserRouter([
     element: <AppLayout />,
     children: [
       {
-        path:"/",
-        element:<Body/>
+        path: "/",
+        element: <Body />,
       },
       {
         path: "/about",
@@ -45,12 +59,17 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/grocery",
-        element:<Suspense fallback={<h1>laoding....</h1>}> <Grocery/> </Suspense> ,
+        element: (
+          <Suspense fallback={<h1>laoding....</h1>}>
+            {" "}
+            <Grocery />{" "}
+          </Suspense>
+        ),
       },
       {
-        path:"/restaurants/:resId",
-        element:<RestaurantMenu/>
-      }
+        path: "/restaurants/:resId",
+        element: <RestaurantMenu />,
+      },
     ],
     errorElement: <Error />,
   },
