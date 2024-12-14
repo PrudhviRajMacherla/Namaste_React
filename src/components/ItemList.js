@@ -1,7 +1,21 @@
 import { FaRupeeSign } from "react-icons/fa";
 import { CDN_URL } from "../utils/constants";
+import { useDispatch } from "react-redux";
+import { addItem } from "../redux/cartSlice";
 
 const ItemList = ({ items }) => {
+  const dispatch = useDispatch();
+  
+  const handleAddItems = (item)=>{
+      dispatch(addItem(item))
+  }
+  //the dispatch will sent this item as a payload to the 2nd attribute action
+  // which is then extracted over there
+  // {
+  //   payload:"pizza"
+  // }
+  // this is internally handled by redux toolkit
+
   return (
     <div>
       {items.map((item) => (
@@ -30,7 +44,9 @@ const ItemList = ({ items }) => {
               src={CDN_URL + item.card.info.imageId}
               className="w-28 h-28 rounded-md object-cover"
             />
-            <button className="absolute bottom-1 left-1/2 transform -translate-x-1/2 translate-y-1/2 bg-green-500 text-white font-bold text-sm px-4 py-1 rounded-lg shadow-lg hover:bg-green-600 transition duration-300">
+            <button className="absolute bottom-1 left-1/2 transform -translate-x-1/2 translate-y-1/2 bg-green-500 text-white font-bold text-sm px-4 py-1 rounded-lg shadow-lg hover:bg-green-600 transition duration-300"
+              onClick={()=>handleAddItems(item)}
+            >
               ADD
             </button>
           </div>

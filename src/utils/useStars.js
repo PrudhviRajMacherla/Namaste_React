@@ -1,8 +1,8 @@
-import { FaStar, FaRegStar } from "react-icons/fa"; // Import Font Awesome icons
+import { FaStar, FaRegStar } from "react-icons/fa";
 
 const useStars=(rating)=>{
-    const filledStars = Math.floor(rating); // Get whole number of filled stars
-        const emptyStars = 5 - filledStars; // Fill remaining stars with empty stars
+    const filledStars = Math.floor(rating); 
+        const emptyStars = 5 - filledStars; 
 
         const stars = [];
         // Add filled stars

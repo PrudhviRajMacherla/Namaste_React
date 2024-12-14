@@ -1,23 +1,13 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { FaArrowDown } from "react-icons/fa";
 import ItemList from "./ItemList";
 
 const RestaurantCategory = ({ dataObj,showItems,setShowIndex}) => {
   const { title } = dataObj;
-  // const handleClick = () => {
-  //   setShowIndex();
-  // };
-
   const handleClick = () => {
-    
-    if (showItems) {
-      console.log('it is working in if')
-      setShowIndex(null); // Collapse the accordion
-    } else {
-      console.log('it is working in else')
-      setShowIndex(); // Open the accordion
-    }
+    setShowIndex();
   };
+  
   return (
     <div>
       {/* Header */}

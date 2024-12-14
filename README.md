@@ -51,3 +51,11 @@ Two imp hooks
 1) we create different files which make different calls
 2) Bundling makes everything into one large file
 both r not suitable so we bundle few files into more bundles -> chunking/code splittig/dynamic bundling/lazy loading(All r same )
+
+# Redux Toolkit 
+ -Install @reduxjs/toolkit and react-redux
+ -Build our Store
+ -Connect our store to our app
+ -Slice(cartSlice)
+ -dispatch(action)
+ -Selector

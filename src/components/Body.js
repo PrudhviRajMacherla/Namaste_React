@@ -17,7 +17,7 @@ const Body = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [onlineStatus]);
 
   const fetchData = async () => {
     const response = await fetch(RESTAURANTS_LIST_API);
